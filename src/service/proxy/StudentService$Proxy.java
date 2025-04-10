@@ -1,8 +1,12 @@
 package service.proxy;
 
+import annotations.Saveable;
 import entity.Human;
 import entity.Student;
+import service.Database;
 import service.StudentService;
+
+import java.lang.reflect.Method;
 
 import static service.proxy.ProxyUtil.save;
 
@@ -48,4 +52,16 @@ public class StudentService$Proxy extends StudentService {
         return i;
     }
 
+    private void save(String name, Class clazz)  {
+        try{
+        Method declaredMethod = clazz.getDeclaredMethod(name, clazz);
+        if(declaredMethod.isAnnotationPresent(Saveable.class)){
+
+            Database.save();
+        }
+
+    }catch (NoSuchMethodException e){
+        throw new RuntimeException(e);
+    }
+}
 }
