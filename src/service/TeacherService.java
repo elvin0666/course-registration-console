@@ -5,11 +5,13 @@ import util.FileUtil;
 
 import java.util.Scanner;
 
+import static service.Database.HUMAN_WRAPPER;
+
 public class TeacherService extends AbstractEducationService {
 
     protected TeacherService() {
 
-        super(Database.HUMAN_WRAPPER.teachers);
+        super(HUMAN_WRAPPER.teachers);
     }
 
     @Override
@@ -32,8 +34,7 @@ public class TeacherService extends AbstractEducationService {
         Teacher teacher = new Teacher(name, surname, age, email, salary);
 
         list.add(teacher);
-        FileUtil.writeObjectToFile(Database.HUMAN_WRAPPER);
-
+        Database.save();
 
         return teacher;
     }
@@ -46,8 +47,8 @@ public class TeacherService extends AbstractEducationService {
             return;
         }
 
-        for(int i=0;i<list.size();i++) { // cant change Db.Students to list, not superclass
-            System.out.println(i+". "+list.get(i));
+        for(int i=0;i<Database.HUMAN_WRAPPER.students.size();i++) { // cant change Db.Students to list, not superclass
+            System.out.println(i+". "+ HUMAN_WRAPPER.students.get(i));
         }
 
         String continueToAdd = "yes";
@@ -61,8 +62,7 @@ public class TeacherService extends AbstractEducationService {
             continueToAdd = new Scanner(System.in).nextLine();
         }
 
-        FileUtil.writeObjectToFile(Database.HUMAN_WRAPPER);
-
+Database.save();
     }
 
     @Override

@@ -8,24 +8,31 @@ import java.util.logging.Logger;
 
 public class FileUtil {
 
+private static final Logger LOGGER =Logger.getLogger(File.class.getName());
 
-    public static void writeObjectToFile(HumanWrapper humanWrapper) {
+    public static void writeObjectToFile(Object object,String fileName) {
 
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("output.obj"))){
-            objectOutputStream.writeObject(humanWrapper);
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileName))){
+            objectOutputStream.writeObject(object);
         } catch (Exception e) {
             System.out.println("Corrupt file");
+            LOGGER.log(Level.SEVERE,"file not be written", e);
+
         }
     }
 
-    public static Object readObjectFromFile() {
+    public static Object readObjectFromFile(String fileName) {
 
-        try (InputStream inputStream = new FileInputStream("Output.obj");
+        File file = new File(fileName);
+        if(file.exists()){
+            return null;
+        }
+        try (InputStream inputStream = new FileInputStream( fileName);
              ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)){
 
             return objectInputStream.readObject();
         } catch (Exception e) {
-            System.out.println("File could not be found");
+            LOGGER.log(Level.SEVERE,"file not be read", e);
             return new HumanWrapper();
         }
     }
