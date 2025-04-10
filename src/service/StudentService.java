@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class StudentService extends AbstractEducationService {
 
     protected StudentService() {
+
         super(Database.HUMAN_WRAPPER.students);
     }
 
@@ -30,8 +31,8 @@ public class StudentService extends AbstractEducationService {
         Student student = new Student(name, surname, age, email, scholarship);
 
         list.add(student);
+        FileUtil.writeObjectToFile(Database.HUMAN_WRAPPER);
 
-        Database.save();
 
         return student;
     }

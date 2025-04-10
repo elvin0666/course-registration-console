@@ -46,7 +46,7 @@ public abstract class AbstractEducationService implements EducationService {
         list.remove(index);
         System.out.println("Deleted ✔ \n");
 
-        Database.save();
+        FileUtil.writeObjectToFile(Database.HUMAN_WRAPPER);
     }
 
     @Override

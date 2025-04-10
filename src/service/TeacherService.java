@@ -1,12 +1,14 @@
 package service;
 import entity.Student;
 import entity.Teacher;
+import util.FileUtil;
 
 import java.util.Scanner;
 
 public class TeacherService extends AbstractEducationService {
 
     protected TeacherService() {
+
         super(Database.HUMAN_WRAPPER.teachers);
     }
 
@@ -30,8 +32,8 @@ public class TeacherService extends AbstractEducationService {
         Teacher teacher = new Teacher(name, surname, age, email, salary);
 
         list.add(teacher);
+        FileUtil.writeObjectToFile(Database.HUMAN_WRAPPER);
 
-        Database.save();
 
         return teacher;
     }
@@ -44,22 +46,23 @@ public class TeacherService extends AbstractEducationService {
             return;
         }
 
-        for(int i=0;i<Database.HUMAN_WRAPPER.students.size();i++) { // cant change Db.Students to list, not superclass
-            System.out.println(i+". "+Database.HUMAN_WRAPPER.students.get(i));
+        for(int i=0;i<list.size();i++) { // cant change Db.Students to list, not superclass
+            System.out.println(i+". "+list.get(i));
         }
 
         String continueToAdd = "yes";
         while (continueToAdd.equalsIgnoreCase("yes")) {
             System.out.println("Which student do you want to add?");
             int index = new Scanner(System.in).nextInt();
-            Student selectedStudent = (Student) Database.HUMAN_WRAPPER.students.get(index); // casting, cant change to list, not superclass
+            Student selectedStudent = (Student) list.get(index); // casting, cant change to list, not superclass
             found.getStudents().add(selectedStudent); // teacher-in student siyahisina elave et
 
             System.out.println("Do you want to add another student?");
             continueToAdd = new Scanner(System.in).nextLine();
         }
 
-        Database.save();
+        FileUtil.writeObjectToFile(Database.HUMAN_WRAPPER);
+
     }
 
     @Override
