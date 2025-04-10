@@ -46,8 +46,7 @@ public abstract class AbstractEducationService implements EducationService {
         list.remove(index);
         System.out.println("Deleted ✔ \n");
 
-        Database.save();    }
-
+    }
     @Override
     public int showMenu() {
         System.out.println("Please enter the operation:\n" +

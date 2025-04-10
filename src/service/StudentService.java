@@ -31,8 +31,6 @@ public class StudentService extends AbstractEducationService {
         Student student = new Student(name, surname, age, email, scholarship);
 
         list.add(student);
-        Database.save();
-Database.save();
         return student;
     }
 

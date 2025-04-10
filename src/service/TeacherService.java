@@ -34,7 +34,6 @@ public class TeacherService extends AbstractEducationService {
         Teacher teacher = new Teacher(name, surname, age, email, salary);
 
         list.add(teacher);
-        Database.save();
 
         return teacher;
     }
@@ -62,7 +61,6 @@ public class TeacherService extends AbstractEducationService {
             continueToAdd = new Scanner(System.in).nextLine();
         }
 
-Database.save();
     }
 
     @Override

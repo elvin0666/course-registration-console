@@ -10,7 +10,7 @@ public class Database {
         HUMAN_WRAPPER= getHumanWrapper();
     }
 private static final String FILE_NAME="registration-db.obj";
-    public static final HumanWrapper HUMAN_WRAPPER  ;
+    public static  HumanWrapper HUMAN_WRAPPER  ;
 
     private static HumanWrapper getHumanWrapper(){
        HumanWrapper humanWrapper=(HumanWrapper)FileUtil.readObjectFromFile(FILE_NAME);
@@ -18,5 +18,13 @@ private static final String FILE_NAME="registration-db.obj";
     }
 public static  void save (){
         FileUtil.writeObjectToFile(HUMAN_WRAPPER, FILE_NAME);
+}
+
+public static void initialize(boolean saveToFile){
+        if (saveToFile) {
+            HUMAN_WRAPPER = getHumanWrapper();
+        }else {
+            HUMAN_WRAPPER= new HumanWrapper();
+        }
 }
 }
